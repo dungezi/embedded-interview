@@ -58,3 +58,20 @@ summary { cursor: pointer; color: #2d64d3; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 800px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stats { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 540px) { .app-shell { padding: 0 16px; } .app-header { flex-direction: column; justify-content: center; padding: 18px 0; gap: 12px; } main { padding-top: 24px; } .panel { padding: 20px; } .category-grid { grid-template-columns: 1fr; } .section-heading { align-items: flex-start; flex-wrap: wrap; } .start-bar { align-items: stretch; } .start-bar .primary { width: 100%; } .stat { padding: 18px; } }
+.type-filter { margin-top: 28px; padding-top: 22px; border-top: 1px solid #edf0f5; }
+.question-type { color: #245dcc; font-size: 19px; background: #edf3ff; border: 1px solid #adc5f4; border-radius: 7px; padding: 5px 10px; }
+.answer-instruction { font-weight: 600; color: #415a7e; }
+.option input { width: 20px; height: 20px; margin-top: 3px; }
+.options-true_false { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.option-explanations { list-style: none; padding: 0; }
+.option-explanations li { background: #f6f8fc; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
+.option-explanations p { margin: 8px 0 0; }
+textarea { width: 100%; font: inherit; display: block; margin: 8px 0 20px; padding: 14px; border: 1px solid #ccd6e6; border-radius: 10px; resize: vertical; color: inherit; background: white; }
+textarea:focus-visible { outline: 3px solid #5289ef; outline-offset: 2px; }
+.code-input, .code-block { font-family: Consolas, monospace; tab-size: 2; line-height: 1.6; }
+.code-block { overflow-x: auto; white-space: pre; background: #18263b; color: #e5efff; padding: 18px; border-radius: 10px; font-size: 14px; }
+.question-title { white-space: pre-wrap; }
+.self-assessment { padding: 18px; background: #edf3ff; border-radius: 10px; }
+.clear-data { margin: 28px 0; }
+.clear-data p { margin-top: 8px; }
+button.danger { color: #a54429; border-color: #dfb1a4; }

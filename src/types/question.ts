@@ -10,6 +10,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard'
 export interface Option {
   id: string
   text: string
+  explanation: string
 }
 
 export interface Question {

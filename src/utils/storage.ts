@@ -12,6 +12,7 @@ function isRecord(value: unknown): value is AnswerRecord {
   const record = value as Partial<AnswerRecord>
   return Number.isInteger(record.questionId) && typeof record.correct === 'boolean'
     && typeof record.answeredAt === 'string'
+    && (record.outcome === undefined || ['correct', 'incorrect', 'unknown', 'mastered', 'unmastered'].includes(record.outcome))
     && (typeof record.answer === 'string' || typeof record.answer === 'boolean'
       || (Array.isArray(record.answer) && record.answer.every(id => typeof id === 'string')))
 }
@@ -37,5 +38,14 @@ export function saveStudyData(data: StudyData): string {
     return ''
   } catch {
     return '本地保存失败，本次记录仍在当前页面保留，刷新后可能丢失。'
+  }
+}
+
+export function clearStudyData(): string {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+    return ''
+  } catch {
+    return '清空失败，学习数据仍保留，请检查浏览器存储权限后重试。'
   }
 }

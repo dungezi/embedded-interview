@@ -1,16 +1,16 @@
 import { categories } from '../data/categories'
-import type { Difficulty, Question } from '../types/question'
+import type { Difficulty, Question, QuestionType } from '../types/question'
 
 export const difficultyNames = { easy: '简单', medium: '中等', hard: '困难' }
 export const typeNames = { single: '单选题', multiple: '多选题', true_false: '判断题', short_answer: '简答题', code: '代码题' }
 export const tagNames = Object.fromEntries(categories.flatMap(category => category.tags.map(tag => [tag.id, tag.name])))
 
 export function isPracticeQuestion(question: Question) {
-  return ['single', 'multiple', 'true_false'].includes(question.type)
+  return question.type in typeNames
 }
 
-export function filterQuestions(questions: Question[], tags: string[], difficulty: Difficulty | 'all') {
-  return questions.filter(question => isPracticeQuestion(question)
+export function filterQuestions(questions: Question[], tags: string[], difficulty: Difficulty | 'all', types: QuestionType[] = Object.keys(typeNames) as QuestionType[]) {
+  return questions.filter(question => types.includes(question.type)
     && (tags.length === 0 || question.tags.some(tag => tags.includes(tag)))
     && (difficulty === 'all' || question.difficulty === difficulty))
 }

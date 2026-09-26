@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { AnswerRecord, StudyData } from '../types/study'
-import { loadStudyData, saveStudyData } from '../utils/storage'
+import { clearStudyData, emptyStudyData, loadStudyData, saveStudyData } from '../utils/storage'
 
 export function useStudyData() {
   const [state, setState] = useState(loadStudyData)
@@ -23,5 +23,10 @@ export function useStudyData() {
     update({ ...state.data, favoriteIds })
   }
 
-  return { ...state, recordAnswer, toggleFavorite }
+  function clearLearningData() {
+    const error = clearStudyData()
+    setState({ data: error ? state.data : emptyStudyData(), error })
+  }
+
+  return { ...state, recordAnswer, toggleFavorite, clearLearningData }
 }
