@@ -75,3 +75,34 @@ textarea:focus-visible { outline: 3px solid #5289ef; outline-offset: 2px; }
 .clear-data { margin: 28px 0; }
 .clear-data p { margin-top: 8px; }
 button.danger { color: #a54429; border-color: #dfb1a4; }
+.category-group { margin: 0; border: 1px solid #e7ebf2; padding: 12px; border-radius: 9px; }
+.category-group summary { color: #34435a; font-weight: 600; }
+.category-group .chips { margin-top: 14px; }
+.difficulty-filter { display: block; margin-top: 22px; }
+.home-links { margin-top: 24px; }
+.bank-search { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 26px; }
+.bank-search label:first-child { flex: 1 1 300px; }
+.bank-search label { font-weight: 600; }
+.bank-search input { display: block; width: 100%; padding: 12px; border: 1px solid #dce2eb; border-radius: 9px; margin-top: 8px; font: inherit; }
+.bank-search input:focus-visible { outline: 3px solid #5289ef; }
+.bank-search select { display: block; margin: 8px 0 0; max-width: 100%; }
+.bank-count { margin-top: 26px; }
+.bank-question summary { font-weight: 600; font-size: 19px; white-space: pre-wrap; color: #243247; }
+.bank-question { margin-bottom: 18px; }
+.bank-options { padding-left: 20px; line-height: 1.9; }
+.pagination { margin-top: 24px; justify-content: center; align-items: center; }
+@media (max-width: 540px) { nav { flex-wrap: wrap; justify-content: center; } nav button { padding: 8px 12px; } .bank-search { display: block; } .bank-search label { display: block; margin-bottom: 18px; } .start-bar .actions { width: 100%; } .start-bar .actions button { flex: 1; } }
+.scoring-feedback { margin: 24px 0; background: #f0f5ff; border: 1px solid #d4e1f9; border-radius: 12px; padding: 20px; }
+.scoring-feedback ul { padding-left: 24px; line-height: 1.9; }
+.misconceptions { color: #a54429; }
+.self-assessment p[role="status"] { margin: 14px 0 0; }
+.next-button { margin-top: 22px; }
+@media (max-width: 540px) { .self-assessment .actions button { flex: 1 1 40%; } .scoring-feedback { padding: 16px; } }
+.backup-panel { margin-top: 28px; }
+.file-button { display: inline-flex; position: relative; align-items: center; justify-content: center; border: 1px solid #dce2eb; border-radius: 9px; padding: 9px 16px; cursor: pointer; min-height: 44px; }
+.file-button input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.file-button:focus-within { outline: 3px solid #5289ef; outline-offset: 3px; }
+.backup-preview { background: #f6f8fc; border-radius: 10px; padding: 18px; margin-top: 18px; }
+.backup-preview h3 { overflow-wrap: anywhere; }
+.backup-panel > p[role="status"] { margin-top: 16px; }
+@media (max-width: 540px) { .backup-panel .actions > button, .backup-panel .actions > label { min-height: 44px; flex: 1 1 45%; } }

@@ -1,6 +1,20 @@
 import type { Question } from '../types/question'
+import { getSubjectiveEvaluation } from './question-bank/evaluation'
+import { convertedQuestions } from './question-bank/converted'
+import { expansionQuestions } from './question-bank/expansion'
+import { programmingProcessorChoices } from './question-bank/choice-programming-processors'
+import { systemProtocolChoices } from './question-bank/choice-systems-protocols'
+import { hardwareToolChoices } from './question-bank/choice-hardware-tools'
+import { programmingQuestions } from './question-bank/programming'
+import { processorQuestions } from './question-bank/processors'
+import { rtosQuestions } from './question-bank/rtos'
+import { linuxQuestions } from './question-bank/linux'
+import { communicationQuestions } from './question-bank/communication'
+import { hardwareQuestions } from './question-bank/hardware'
+import { fpgaQuestions } from './question-bank/fpga'
+import { toolQuestions } from './question-bank/tools'
 
-export const questions: Question[] = [
+const originalQuestions: Question[] = [
   {
     id: 1,
     tags: ['c'],
@@ -107,7 +121,7 @@ export const questions: Question[] = [
     type: 'short_answer',
     difficulty: 'medium',
     title: '两个节点同时发送具有不同标识符的标准 CAN 数据帧时，如何通过仲裁决定谁继续发送？',
-    answer: 'CAN 使用逐位、非破坏性仲裁。显性位 0 覆盖隐性位 1；节点发送隐性位却读到显性位时退出仲裁。对于不同的 11 位标准数据帧标识符，数值较小的标识符优先级更高，获胜节点继续发送。',
+    answer: '1. 面试简答版\nCAN 使用逐位、非破坏性仲裁。显性位 0 覆盖隐性位 1；节点发送隐性位却读到显性位时退出仲裁。对于不同的 11 位标准数据帧标识符，数值较小的标识符优先级更高，获胜节点继续发送。\n\n2. 详细解释\n发送节点同时监测总线，标识符按高位到低位比较。在首个不同位，发送 1 却读到 0 的节点退出，之后等待重发；发送 0 的节点保持帧传输。标准帧与扩展帧同时竞争时，还需考虑仲裁字段的格式位，不能简单比较完整数值。',
     explanation: '标识符从高位开始参与仲裁，首次出现不同位时即可决定胜负。失败节点转为接收并等待后续重发，获胜帧不会因正常仲裁而被破坏。',
     related: ['显性位与隐性位', '非破坏性仲裁'],
   },
@@ -117,7 +131,7 @@ export const questions: Question[] = [
     type: 'short_answer',
     difficulty: 'medium',
     title: 'PCB 上，为什么芯片电源引脚附近通常需要放置去耦电容？布局布线时应注意什么？',
-    answer: '去耦电容为芯片瞬态电流提供局部路径并降低电源高频噪声。应靠近电源和地引脚放置，缩短连接、减小电流回路面积，并保持低阻抗的接地路径；容量和数量应结合器件建议及供电需求确定。',
+    answer: '1. 面试简答版\n去耦电容为芯片瞬态电流提供局部路径并降低电源高频噪声。应靠近电源和地引脚放置，缩短连接、减小电流回路面积，并保持低阻抗的接地路径；容量和数量应结合器件建议及供电需求确定。\n\n2. 详细解释\n芯片切换时需要快速瞬态电流，电容在局部供电回路中提供能量。寄生电感会使长走线的高频阻抗上升，因此放置距离之外，还要看接地过孔和整个回路。不同容值、封装和电源平面共同决定频段响应，应结合测量验证而不是只堆容量。',
     explanation: '走线和过孔具有寄生电感，较长的供电回路会削弱高频去耦效果。布局需同时考虑电源路径、回流路径和参考平面的连续性。',
     related: ['去耦', '回流路径', '寄生电感'],
   },
@@ -154,3 +168,21 @@ endmodule
     related: ['跨时钟域', '亚稳态', '非阻塞赋值'],
   },
 ]
+
+// 已发布题目 ID 不重排，避免破坏本地收藏、错题和答题记录。
+export const questions: Question[] = [
+  ...originalQuestions,
+  ...programmingQuestions,
+  ...processorQuestions,
+  ...rtosQuestions,
+  ...linuxQuestions,
+  ...communicationQuestions,
+  ...hardwareQuestions,
+  ...fpgaQuestions,
+  ...toolQuestions,
+  ...convertedQuestions,
+  ...expansionQuestions,
+  ...programmingProcessorChoices,
+  ...systemProtocolChoices,
+  ...hardwareToolChoices,
+].map(question => ({ ...question, subjectiveEvaluation: getSubjectiveEvaluation(question.id) }))

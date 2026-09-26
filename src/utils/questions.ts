@@ -9,9 +9,13 @@ export function isPracticeQuestion(question: Question) {
   return question.type in typeNames
 }
 
-export function filterQuestions(questions: Question[], tags: string[], difficulty: Difficulty | 'all', types: QuestionType[] = Object.keys(typeNames) as QuestionType[]) {
+export function filterQuestions(questions: Question[], tags: string[], difficulty: Difficulty | 'all', types: QuestionType[] = Object.keys(typeNames) as QuestionType[], search: { query?: string; categoryId?: string } = {}) {
+  const category = categories.find(item => item.id === search.categoryId)
+  const keyword = search.query?.trim().toLocaleLowerCase() ?? ''
   return questions.filter(question => types.includes(question.type)
-    && (tags.length === 0 || question.tags.some(tag => tags.includes(tag)))
+    && (!search.categoryId || Boolean(category?.tags.some(tag => question.tags.includes(tag.id))))
+    && [question.title, ...(question.related ?? []), question.explanation].join('\n').toLocaleLowerCase().includes(keyword)
+    && question.tags.some(tag => tags.includes(tag))
     && (difficulty === 'all' || question.difficulty === difficulty))
 }
 
@@ -32,4 +36,18 @@ export function formatAnswer(question: Question, answer = question.answer): stri
     const option = question.options?.find(item => item.id === id)
     return option ? `${id}. ${option.text}` : id
   }).join('；')
+}
+
+/** Fisher–Yates：保留筛选集合，仅随机化顺序，不修改原题库。 */
+export function shuffleQuestions(questions: Question[], random: () => number = Math.random): Question[] {
+  const shuffled = [...questions]
+  for (let index = shuffled.length - 1; index > 0; index--) {
+    const target = Math.floor(random() * (index + 1))
+    ;[shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]]
+  }
+  return shuffled
+}
+
+export function isSubjectiveQuestion(question: Question): boolean {
+  return question.type === 'short_answer' || question.type === 'code'
 }

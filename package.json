@@ -1,13 +1,16 @@
 {
   "name": "embedded-interview",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:data": "node scripts/check-question-bank.cjs",
+    "check:subjective": "node scripts/check-subjective.cjs",
+    "check:backup": "node scripts/check-backup.cjs"
   },
   "dependencies": {
     "react": "^19.2.8",

@@ -12,6 +12,21 @@ dist
 dist-ssr
 *.local
 
+# Environment files (keep examples for shared configuration)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Generated caches and test output
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Local learning-data exports and temporary verification files
+embedded-interview-backup-*.json
+.tmp-*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
